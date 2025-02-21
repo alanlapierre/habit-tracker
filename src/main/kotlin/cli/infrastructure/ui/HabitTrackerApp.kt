@@ -2,15 +2,20 @@ package com.alapierre.cli.infrastructure.ui
 
 import com.alapierre.cli.infrastructure.utils.Messages
 import cli.domain.exception.HabitServiceException
-import cli.domain.service.HabitService
+import cli.domain.service.HabitFinder
 import com.alapierre.cli.domain.dto.AddHabitRequestDto
 import com.alapierre.cli.domain.dto.CompleteHabitRequestDto
 import com.alapierre.cli.domain.dto.DeleteHabitRequestDto
+import com.alapierre.cli.domain.usecase.*
 import com.alapierre.cli.infrastructure.ui.common.ConsoleManager
 import com.alapierre.cli.infrastructure.ui.menu.Menu
 
 class HabitTrackerApp(
-    private val habitService: HabitService,
+    private val addHabitUseCase: AddHabitUseCase,
+    private val calculateHabitStatisticsUseCase: CalculateHabitStatisticsUseCase,
+    private val completeHabitUseCase: CompleteHabitUseCase,
+    private val deleteHabitUseCase: DeleteHabitUseCase,
+    private val listHabitsUseCase: ListHabitsUseCase,
     private val messages: Messages,
     private val menu: Menu,
     private val console: ConsoleManager
@@ -35,13 +40,13 @@ class HabitTrackerApp(
             console.printColorPrompt("${messages.get("add.frequency.prompt")} ", false)
             val habitFrequency = console.readInput()?.toIntOrNull()
 
-            habitService.add(AddHabitRequestDto(habitName, habitFrequency))
+            addHabitUseCase.execute(AddHabitRequestDto(habitName, habitFrequency))
             console.printSuccess(messages.get("add.success"))
         })
     }
 
     private fun listHabits(): List<Pair<Int, String>> {
-        val habits = habitService.list()
+        val habits = listHabitsUseCase.execute()
         if (habits.isEmpty()) {
             console.printWarning(messages.get("list.empty"))
             return emptyList()
@@ -59,7 +64,7 @@ class HabitTrackerApp(
                 messages.get("complete.prompt"),
                 messages.get("select.error.invalid_habit_number")
             ) ?: return
-            habitService.complete(CompleteHabitRequestDto(habitId))
+            completeHabitUseCase.execute(CompleteHabitRequestDto(habitId))
             console.printSuccess(messages.get("complete.success"))
         })
     }
@@ -70,7 +75,7 @@ class HabitTrackerApp(
                 messages.get("delete.prompt"),
                 messages.get("select.error.invalid_habit_number")
             ) ?: return
-            habitService.delete(DeleteHabitRequestDto(habitId))
+            deleteHabitUseCase.execute(DeleteHabitRequestDto(habitId))
             console.printSuccess(messages.get("delete.success"))
         })
     }
@@ -78,7 +83,7 @@ class HabitTrackerApp(
 
     private fun showHabitStats() {
         handleErrors({
-            val stats = habitService.getStatistics()
+            val stats = calculateHabitStatisticsUseCase.execute()
             console.printInfo(messages.get("stats.title"))
             console.printPrompt("${messages.get("stats.total")} ${stats.totalHabits}")
             console.printPrompt("${messages.get("stats.completed_this_week")} ${stats.completedThisWeek}")
