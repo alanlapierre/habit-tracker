@@ -1,4 +1,4 @@
-package com.alapierre.cli.database
+package cli.infrastructure.persistence
 
 import com.mongodb.client.MongoClient
 import com.mongodb.client.MongoClients

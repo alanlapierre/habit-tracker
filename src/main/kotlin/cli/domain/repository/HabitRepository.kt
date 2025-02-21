@@ -1,6 +1,6 @@
-package com.alapierre.cli.application.repository
+package cli.domain.repository
 
-import com.alapierre.cli.application.model.Habit
+import cli.domain.model.Habit
 
 interface HabitRepository {
     fun add(habit: Habit)

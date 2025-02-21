@@ -1,4 +1,4 @@
-package com.alapierre.cli.application.exception
+package cli.domain.exception
 
 open class HabitServiceException(message: String) : RuntimeException(message)
 

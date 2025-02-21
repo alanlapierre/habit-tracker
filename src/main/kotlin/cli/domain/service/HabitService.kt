@@ -1,14 +1,14 @@
-package com.alapierre.cli.application.service
+package cli.domain.service
 
-import com.alapierre.cli.application.exception.HabitCompletionException
-import com.alapierre.cli.application.exception.HabitNotFoundException
-import com.alapierre.cli.application.exception.HabitSaveException
-import com.alapierre.cli.application.exception.HabitServiceException
-import com.alapierre.cli.application.util.Clock
+import cli.domain.exception.HabitCompletionException
+import cli.domain.exception.HabitNotFoundException
+import cli.domain.exception.HabitSaveException
+import cli.domain.exception.HabitServiceException
+import cli.domain.utils.Clock
 import com.alapierre.cli.infrastructure.utils.Messages
-import com.alapierre.cli.application.model.Habit
-import com.alapierre.cli.application.model.HabitStatistics
-import com.alapierre.cli.application.repository.HabitRepository
+import cli.domain.model.Habit
+import cli.domain.model.HabitStatistics
+import cli.domain.repository.HabitRepository
 import com.alapierre.cli.domain.dto.*
 import com.alapierre.cli.domain.mapper.toDto
 import org.bson.types.ObjectId

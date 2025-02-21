@@ -1,7 +1,7 @@
 package com.alapierre.cli.domain.mapper
 
-import com.alapierre.cli.application.model.Habit
-import com.alapierre.cli.application.model.HabitStatistics
+import cli.domain.model.Habit
+import cli.domain.model.HabitStatistics
 import com.alapierre.cli.domain.dto.HabitResponseDto
 import com.alapierre.cli.domain.dto.HabitStatisticsResponseDto
 

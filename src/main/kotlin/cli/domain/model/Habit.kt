@@ -1,4 +1,4 @@
-package com.alapierre.cli.application.model
+package cli.domain.model
 
 import kotlinx.serialization.Serializable
 import org.bson.types.ObjectId

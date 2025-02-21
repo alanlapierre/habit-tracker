@@ -1,8 +1,8 @@
 package com.alapierre.cli.infrastructure.ui
 
 import com.alapierre.cli.infrastructure.utils.Messages
-import com.alapierre.cli.application.exception.HabitServiceException
-import com.alapierre.cli.application.service.HabitService
+import cli.domain.exception.HabitServiceException
+import cli.domain.service.HabitService
 import com.alapierre.cli.domain.dto.AddHabitRequestDto
 import com.alapierre.cli.domain.dto.CompleteHabitRequestDto
 import com.alapierre.cli.domain.dto.DeleteHabitRequestDto

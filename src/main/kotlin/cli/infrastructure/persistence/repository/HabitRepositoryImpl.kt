@@ -1,8 +1,8 @@
 package com.alapierre.cli.infrastructure.persistence.repository
 
-import com.alapierre.cli.database.MongoDBConnection
-import com.alapierre.cli.application.model.Habit
-import com.alapierre.cli.application.repository.HabitRepository
+import cli.infrastructure.persistence.MongoDBConnection
+import cli.domain.model.Habit
+import cli.domain.repository.HabitRepository
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Updates

@@ -1,4 +1,4 @@
-package com.alapierre.cli.application.util
+package cli.domain.utils
 
 import java.time.LocalDate
 

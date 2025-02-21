@@ -1,4 +1,4 @@
-package com.alapierre.cli.application.model
+package cli.domain.model
 
 data class HabitStatistics(
     val totalHabits: Int,

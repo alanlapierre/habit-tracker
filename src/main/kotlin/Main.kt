@@ -3,8 +3,8 @@ package com.alapierre
 
 import com.alapierre.cli.infrastructure.utils.Messages
 import com.alapierre.cli.infrastructure.persistence.repository.HabitRepositoryImpl
-import com.alapierre.cli.application.service.HabitService
-import com.alapierre.cli.application.util.Clock
+import cli.domain.service.HabitService
+import cli.domain.utils.Clock
 import com.alapierre.cli.infrastructure.ui.HabitTrackerApp
 import com.alapierre.cli.infrastructure.ui.common.ConsoleManager
 import com.alapierre.cli.infrastructure.ui.menu.Menu
