@@ -104,7 +104,7 @@ class HabitTrackerApp(
         System.exit(0)
     }
 
-    private inline fun handleErrors(action: () -> Unit, defaultErrorMessage: String = messages.get("error.generic")) {
+    private inline fun handleErrors(action: () -> Unit, defaultErrorMessage: String = messages.get("error.unknown")) {
         try {
             action()
         } catch (e: HabitServiceException) {
