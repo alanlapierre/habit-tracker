@@ -7,16 +7,16 @@ import cli.domain.exception.HabitServiceException
 import cli.domain.utils.Clock
 import com.alapierre.cli.infrastructure.utils.Messages
 import cli.domain.model.Habit
-import cli.domain.model.HabitStatistics
 import cli.domain.repository.HabitRepository
 import com.alapierre.cli.domain.dto.*
 import com.alapierre.cli.domain.mapper.toDto
+import com.alapierre.cli.domain.service.HabitStatisticsCalculator
 import org.bson.types.ObjectId
-import java.time.LocalDate
 
 class HabitService(private val repository: HabitRepository,
                    private val messages: Messages,
-                   private val clock: Clock
+                   private val clock: Clock,
+                   private val statisticsCalculator: HabitStatisticsCalculator
 ) {
 
     fun add(request: AddHabitRequestDto) {
@@ -53,31 +53,8 @@ class HabitService(private val repository: HabitRepository,
 
     fun getStatistics(): HabitStatisticsResponseDto {
         val habits = repository.list()
-        val totalHabits = habits.size
-
-        val thisWeek = clock.now().minusDays(clock.now().dayOfWeek.value.toLong())..clock.now()
-        val completedThisWeek = habits.count { habit ->
-            habit.completions.any { date -> LocalDate.parse(date) in thisWeek }
-        }
-
-        val totalProgress = habits.sumOf { habit ->
-            habit.completions.size.toDouble() / habit.frequencyPerWeek
-        }
-        val percentageCompletion = if (habits.isNotEmpty()) (totalProgress / habits.size) * 100 else 0.0
-
-        val bestHabit = habits.maxByOrNull { it.completions.size }
-        val worstHabit = habits.minByOrNull { it.completions.size }
-
-        val statistics = HabitStatistics(
-            totalHabits = totalHabits,
-            completedThisWeek = completedThisWeek,
-            percentageCompletion = percentageCompletion,
-            bestHabit = bestHabit?.name.orEmpty(),
-            worstHabit = worstHabit?.name.orEmpty()
-        )
-
+        val statistics = statisticsCalculator.calculate(habits)
         return statistics.toDto()
-
     }
 
     private fun findById(id: String): Habit {

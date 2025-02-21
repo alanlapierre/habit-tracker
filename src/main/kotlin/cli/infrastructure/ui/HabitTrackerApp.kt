@@ -79,7 +79,7 @@ class HabitTrackerApp(
     private fun showHabitStats() {
         handleErrors({
             val stats = habitService.getStatistics()
-            console.printInfo(messages.get("stats.title") + ":")
+            console.printInfo(messages.get("stats.title"))
             console.printPrompt("${messages.get("stats.total")} ${stats.totalHabits}")
             console.printPrompt("${messages.get("stats.completed_this_week")} ${stats.completedThisWeek}")
             console.printPrompt("${messages.get("stats.global_progress")} ${stats.percentageCompletion}%")
