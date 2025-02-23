@@ -2,13 +2,13 @@ package com.alapierre.cli.infrastructure.ui
 
 import com.alapierre.cli.infrastructure.utils.Messages
 import cli.domain.exception.HabitServiceException
-import cli.domain.service.HabitFinder
 import com.alapierre.cli.domain.dto.AddHabitRequestDto
 import com.alapierre.cli.domain.dto.CompleteHabitRequestDto
 import com.alapierre.cli.domain.dto.DeleteHabitRequestDto
 import com.alapierre.cli.domain.usecase.*
 import com.alapierre.cli.infrastructure.ui.common.ConsoleManager
 import com.alapierre.cli.infrastructure.ui.menu.Menu
+
 
 class HabitTrackerApp(
     private val addHabitUseCase: AddHabitUseCase,
@@ -22,14 +22,14 @@ class HabitTrackerApp(
 ) {
 
     fun run() {
-        menu.registerOption(1, messages.get("menu.option.add")) { addHabit() }
-        menu.registerOption(2, messages.get("menu.option.list")) { listHabits() }
-        menu.registerOption(3, messages.get("menu.option.complete")) { completeHabit() }
-        menu.registerOption(4, messages.get("menu.option.delete")) { deleteHabit() }
-        menu.registerOption(5, messages.get("menu.option.stats")) { showHabitStats() }
-        menu.registerOption(6, messages.get("menu.option.exit")) { exitApp() }
-
-        menu.showAndHandleOptions()
+        menu.start(mapOf(
+            1 to { addHabit() },
+            2 to { listHabits() },
+            3 to { completeHabit() },
+            4 to { deleteHabit() },
+            5 to { showHabitStats() },
+            6 to { exitApp() }
+        ))
     }
 
     private fun addHabit() {

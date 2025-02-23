@@ -11,16 +11,8 @@ out/
 logs/
 tmp/
 
-# Wrapper de Gradle
-gradle/
-gradlew
-gradlew.bat
-
 # Archivos personales o temporales
 habits.txt
-
-# Configuración específica del entorno
-*.properties
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
