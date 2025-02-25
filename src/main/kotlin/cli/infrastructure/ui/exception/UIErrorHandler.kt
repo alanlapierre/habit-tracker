@@ -2,13 +2,13 @@ package com.alapierre.cli.infrastructure.ui.exception
 
 
 import cli.domain.exception.*
-import com.alapierre.cli.infrastructure.ui.common.ConsoleManager
-import com.alapierre.cli.infrastructure.utils.Messages
+import cli.infrastructure.ui.utils.ConsoleManager
 
-class UIErrorHandler(val messages: Messages,
-                     val console: ConsoleManager) {
+class UIErrorHandler(
+    val console: ConsoleManager
+) {
 
-    inline fun handle(action: () -> Unit, defaultErrorMessage: String = messages.get("error.unknown")) {
+    inline fun handle(action: () -> Unit, defaultErrorMessage: String = console.getMessageOrEmpty(key = "error.unknown")) {
         try {
             action()
         } catch (e: HabitServiceException) {

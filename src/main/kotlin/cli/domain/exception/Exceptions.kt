@@ -7,10 +7,10 @@ class HabitException(val errorCode: String) : RuntimeException(errorCode)
 
 //HabitService Exceptions
 
-open class HabitServiceException(message: String) : RuntimeException(message)
+open class HabitServiceException(val key: String) : RuntimeException(key)
 
-class HabitSaveException(message: String) : HabitServiceException(message)
+class HabitSaveException(key: String) : HabitServiceException(key)
 
-class HabitFindException(message: String) : HabitServiceException(message)
+class HabitFindException(key: String) : HabitServiceException(key)
 
-class HabitCompletionException(message: String) : HabitServiceException(message)
+class HabitCompletionException(key: String) : HabitServiceException(key)

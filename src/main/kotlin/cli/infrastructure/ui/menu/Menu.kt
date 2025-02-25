@@ -1,11 +1,10 @@
 package com.alapierre.cli.infrastructure.ui.menu
 
-import com.alapierre.cli.infrastructure.utils.Messages
-import com.alapierre.cli.infrastructure.ui.common.ConsoleManager
+import cli.infrastructure.ui.utils.ConsoleManager
 
 
-class Menu(private val messages: Messages,
-           private val console: ConsoleManager) {
+class Menu(private val console: ConsoleManager
+) {
 
     private val options = mutableMapOf<Int, MenuOption>()
 
@@ -18,7 +17,7 @@ class Menu(private val messages: Messages,
 
         actions.forEach { (optionId, action) ->
             val descriptionKey = "menu.option.${optionId}"
-            options[optionId] = MenuOption(optionId, messages.get(descriptionKey), action)
+            options[optionId] = MenuOption(optionId, descriptionKey, action)
         }
 
     }
@@ -27,18 +26,20 @@ class Menu(private val messages: Messages,
         while (true) {
             displayMenu()
             val selectedOption = readUserOption()
-            options[selectedOption]?.action?.invoke() ?: console.printError(messages.get("menu.error.invalid_option"))
+            options[selectedOption]?.action?.invoke() ?: console.printError(key = "menu.error.invalid_option")
         }
     }
 
     private fun displayMenu() {
-        console.printColorPrompt("═══════════════════════════════════════════")
-        console.printColorPrompt("        ${messages.get("menu.title")} ")
-        console.printColorPrompt("═══════════════════════════════════════════")
+        console.printColorPrompt(text = "═══════════════════════════════════════════")
+        console.printColorPrompt(key = "menu.title")
+        console.printColorPrompt(text = "═══════════════════════════════════════════")
         options.values.forEach {
-            console.printPrompt("${it.id}. ${it.description}")
+            console.printPrompt(text = "${it.id}. ", newLine = false)
+            console.printPrompt(key = it.descriptionKey)
         }
-        console.printColorPrompt("${messages.get("menu.select_option")} ", false)
+        console.printColorPrompt(key = "menu.select_option", newLine = false)
+        console.printColorPrompt(text = " ", newLine = false)
     }
 
     private fun readUserOption() = readlnOrNull()?.toIntOrNull()
