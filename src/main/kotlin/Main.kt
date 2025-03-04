@@ -13,6 +13,7 @@ import com.alapierre.cli.infrastructure.ui.action.*
 import cli.infrastructure.ui.utils.ConsoleManager
 import com.alapierre.cli.infrastructure.ui.exception.UIErrorHandler
 import com.alapierre.cli.infrastructure.ui.menu.Menu
+import com.alapierre.cli.infrastructure.ui.menu.presenter.ConsoleMenuPresenter
 
 fun main() {
 
@@ -25,7 +26,9 @@ fun main() {
     val statisticsCalculator = HabitStatisticsCalculator(clock)
     val habitFinder = HabitFinder(habitRepository)
 
-    val menu = Menu(console)
+    val presenter = ConsoleMenuPresenter(console)
+
+    val menu = Menu(console, presenter)
 
     val addHabitUseCase = AddHabitUseCase(habitRepository, errorHabitHandler)
     val calculateHabitStatisticsUseCase = CalculateHabitStatisticsUseCase(habitRepository, statisticsCalculator)
