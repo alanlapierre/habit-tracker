@@ -1,16 +1,19 @@
-package com.alapierre.cli.infrastructure.ui.action
+package com.alapierre.cli.infrastructure.ui.action.impl
 
 import com.alapierre.cli.domain.usecase.CalculateHabitStatisticsUseCase
 import cli.infrastructure.ui.utils.ConsoleManager
+import com.alapierre.cli.infrastructure.ui.action.HabitAction
+import com.alapierre.cli.infrastructure.ui.action.ActionResult
+import com.alapierre.cli.infrastructure.ui.action.NoResult
 import com.alapierre.cli.infrastructure.ui.exception.UIErrorHandler
 
 class ShowHabitStatisticsAction(
     private val calculateHabitStatisticsUseCase: CalculateHabitStatisticsUseCase,
     private val console: ConsoleManager,
     private val errorHandler: UIErrorHandler
-) {
+): HabitAction {
 
-    fun execute() {
+    override fun execute(): ActionResult {
         errorHandler.handle({
             val stats = calculateHabitStatisticsUseCase.execute()
             console.printInfo(key = "stats.title")
@@ -31,6 +34,8 @@ class ShowHabitStatisticsAction(
             console.printPrompt(text = " ${stats.worstHabit}")
 
         } , console.getMessageOrEmpty("stats.error.retrieve"))
+
+        return NoResult
     }
 
 }

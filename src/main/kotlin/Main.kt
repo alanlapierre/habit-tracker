@@ -9,8 +9,9 @@ import com.alapierre.cli.domain.exception.HabitErrorHandler
 import com.alapierre.cli.domain.service.HabitStatisticsCalculator
 import com.alapierre.cli.domain.usecase.*
 import com.alapierre.cli.infrastructure.ui.HabitTrackerController
-import com.alapierre.cli.infrastructure.ui.action.*
 import cli.infrastructure.ui.utils.ConsoleManager
+import com.alapierre.cli.infrastructure.ui.action.impl.*
+import com.alapierre.cli.infrastructure.ui.action.HabitSelector
 import com.alapierre.cli.infrastructure.ui.exception.UIErrorHandler
 import com.alapierre.cli.infrastructure.ui.menu.Menu
 import com.alapierre.cli.infrastructure.ui.menu.presenter.ConsoleMenuPresenter
@@ -47,12 +48,12 @@ fun main() {
     val exitAction = ExitAction(console)
 
     HabitTrackerController(
-        addHabitAction,
-        habitStatisticsAction,
+        listOf(addHabitAction,
+        listHabitAction,
         completeHabitAction,
         deleteHabitAction,
-        listHabitAction,
-        exitAction,
+        habitStatisticsAction,
+        exitAction),
         menu
        ).run()
 }
